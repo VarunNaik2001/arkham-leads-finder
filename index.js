@@ -1,5 +1,7 @@
 
 const { default: axios } = require("axios");
+import objectToCSVRow from "./fileCreator";
+
 
 axios.defaults.headers.common['API-Key'] = 'R2dr5jjQAxHwg4LMc5RSGgfNvpN0uXGE';
 
@@ -13,7 +15,7 @@ axios({
     params: {
       base: "aave",
       flow: "in",
-      limit: "25",
+      limit: "3",
       usdGte:"1000000",
 
     },
