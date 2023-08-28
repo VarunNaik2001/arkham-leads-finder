@@ -1,6 +1,6 @@
 
-const { default: axios } = require("axios");
-import objectToCSVRow from "./fileCreator";
+import axios from "axios";
+import {objectToCSV} from "./fileCreator.js";
 
 
 axios.defaults.headers.common['API-Key'] = 'R2dr5jjQAxHwg4LMc5RSGgfNvpN0uXGE';
@@ -19,5 +19,5 @@ axios({
       usdGte:"1000000",
 
     },
-  }).then((value)=>{console.log(value.data.transfers)});
+  }).then((value)=>{objectToCSV(value.data.transfers)});
 
