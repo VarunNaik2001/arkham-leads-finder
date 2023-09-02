@@ -1,21 +1,18 @@
 import * as fs from 'fs';
 
-const headers = {'fromAddress':8};
+const headers = {'fromAddress':'','arkhamEntity':'','toAddress':'','blockTimestamp':'','tokenSymbol':'','historicalUSD':'','chain':''};
 const createCSVRow = function(dataObject) {
 
-    /*
-    Creating Headers
-    */
 
     var dataArray = new Array;
 
     for (var o in dataObject) {
 
+        console.log(`${o} ||| ${dataObject[o]}`)
         if(!(typeof dataObject[o] == 'object')){
 
-
-            var innerValue = dataObject[o]===null?'':dataObject[o].toString();
-            var result = innerValue.replace(/"/g, '');
+            let innerValue = dataObject[o]===null?'':dataObject[o].toString();
+            let result = innerValue.replace(/"/g, '');
             result = '' + result + ',';
             dataArray.push(result);
 
@@ -27,8 +24,11 @@ const createCSVRow = function(dataObject) {
 
         
         else{
-
- 
+            let arrayToAdd = createCSVRow(dataObject[o]);
+            console.log('ARRAYTOADD ' + typeof arrayToAdd.split(',') );
+            Object.assign(dataArray, arrayToAdd.split(','));
+            
+            /*
             for (var m in dataObject[o]) {
 
                 var innerValue = dataObject[o][m]===null?'':dataObject[o][m].toString();
@@ -36,14 +36,13 @@ const createCSVRow = function(dataObject) {
                 result = '' + result + ',';
                 dataArray.push(result);
         
-            } 
+            } */
 
         }
 
     }
 
-    console.log(dataArray.length);
-    return dataArray.join(' ') + '\r\n';
+    return dataArray.join(' ') ;
 }
 
 const objectToCSV = function(dataObject){
@@ -53,8 +52,7 @@ const objectToCSV = function(dataObject){
     
 
         let dataToAdd = createCSVRow(data);
-        
-        fs.appendFile('arkham-leads.txt', dataToAdd, function (err) {
+        fs.appendFile('arkham-leads.txt', dataToAdd + '\r\n', function (err) {
             if (err) console.log(err);
         });
 
@@ -62,6 +60,8 @@ const objectToCSV = function(dataObject){
 
     };
 }
+
+
     
 export { objectToCSV };
 
