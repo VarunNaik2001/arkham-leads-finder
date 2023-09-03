@@ -1,62 +1,79 @@
 import * as fs from 'fs';
 
-const headers = {'fromAddress':'','arkhamEntity':'','toAddress':'','blockTimestamp':'','tokenSymbol':'','historicalUSD':'','chain':''};
-const createCSVRow = function(dataObject) {
+const headers = {'fromAddress':{'address':'','arkhamEntity':{'name':'','website':'','twitter':''}},'toAddress':{'address':'','arkhamEntity':{'name':'','website':'','twitter':''}},'blockTimestamp':'','tokenSymbol':'','historicalUSD':'','chain':''};
 
+const objectToString = function(objToConvert){
 
-    var dataArray = new Array;
+    let str = '';
 
-    for (var o in dataObject) {
+    for (var key in objToConvert){
 
-        console.log(`${o} ||| ${dataObject[o]}`)
-        if(!(typeof dataObject[o] == 'object')){
-
-            let innerValue = dataObject[o]===null?'':dataObject[o].toString();
-            let result = innerValue.replace(/"/g, '');
-            result = '' + result + ',';
-            dataArray.push(result);
-
+        if( typeof objToConvert[key] != 'object' ){
+            str = str + `${objToConvert[key]},` ;
         }
 
-        /*
-        Logic to deal with nested objects
-        */
-
-        
         else{
-            let arrayToAdd = createCSVRow(dataObject[o]);
-            console.log('ARRAYTOADD ' + typeof arrayToAdd.split(',') );
-            Object.assign(dataArray, arrayToAdd.split(','));
-            
-            /*
-            for (var m in dataObject[o]) {
+            str = str + objectToString(objToConvert[key]);
+        }
+    }
 
-                var innerValue = dataObject[o][m]===null?'':dataObject[o][m].toString();
-                var result = innerValue.replace(/"/g, '');
-                result = '' + result + ',';
-                dataArray.push(result);
-        
-            } */
+    return str;
 
+}
+
+const addToFile = function(dataToAdd){
+    fs.appendFileSync('arkham-leads.txt', dataToAdd, function (err) {
+        if (err) console.log(err);
+    });
+}
+const createCSVRow = function(transactionData,objectToFill_) {
+
+    let objectToFill = Object.assign({},objectToFill_);
+
+    for(var key in objectToFill){
+
+        if(typeof objectToFill[key] != 'object'){
+
+            if(transactionData.hasOwnProperty(key)){
+
+                addToFile(transactionData[key] + ',');
+
+            }
+
+            else{
+
+                addToFile(',');
+
+            }
+        }
+
+        else{
+
+            if(transactionData.hasOwnProperty(key)){
+
+                createCSVRow(transactionData[key],objectToFill[key]);
+
+            }
+
+            else{
+
+                createCSVRow(objectToFill[key],objectToFill[key]);
+
+            }
         }
 
     }
 
-    return dataArray.join(' ') ;
+    return objectToFill;
+
 }
 
 const objectToCSV = function(dataObject){
 
     for (var key in dataObject){
-        let data = dataObject[key];
-    
 
-        let dataToAdd = createCSVRow(data);
-        fs.appendFile('arkham-leads.txt', dataToAdd + '\r\n', function (err) {
-            if (err) console.log(err);
-        });
-
-        
+        createCSVRow(dataObject[key],headers);
+        addToFile('\r\n');
 
     };
 }

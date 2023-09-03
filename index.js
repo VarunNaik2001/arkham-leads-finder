@@ -23,10 +23,11 @@ axios({
     params: {
       base: "aave,compound,notional-finance,morpho,venus",
       flow: "in",
-      limit: "1",
+      limit: "1000",
       usdGte:"1000000",
       timeGte:"1684832820",
       sortKey:"usd",
     },
-  }).then((value)=>{objectToCSV(value.data.transfers)}).catch(error => console.log(error));
+  }).then((value)=>{objectToCSV(value.data.transfers)})
+    .catch(error => console.log(error));
 
