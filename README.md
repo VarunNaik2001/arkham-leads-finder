@@ -10,7 +10,7 @@ https://arkham-intelligence.notion.site/arkham-intelligence/Arkham-API-Access-92
 
 2. Navigate to term-arkham-explorer folder in terminal and run 'npm install' command 
 
-3. In index.js change parameters and parameter settings if needed. For complete list of parameters and settings, visit the Arkham API Notion page above
+3. In index.js, change parameters and parameter configurations if needed. For complete list of parameters and settings, visit the Arkham API Notion page above
 
 # running program
 1. To run program, navigate to term-arkham-explorer folder in terminal and run 'node index.js' command 
