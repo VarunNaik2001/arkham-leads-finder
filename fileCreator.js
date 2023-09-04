@@ -55,10 +55,14 @@ const createCSVRow = function(transactionData,objectToFill_) {
 const objectToCSV = function(dataObject){
 
     for (var key in dataObject){
+        
+        if(dataObject[key]['type'] != 'internal'){
 
-        createCSVRow(dataObject[key],headers);
+            createCSVRow(dataObject[key],headers);
 
-        addToFile('\r\n');
+            addToFile('\r\n');
+
+        }
 
     };
 }
