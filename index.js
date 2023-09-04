@@ -7,11 +7,11 @@ axios.defaults.headers.common['API-Key'] = 'R2dr5jjQAxHwg4LMc5RSGgfNvpN0uXGE';
 
 /*
 
-base: the entities to search, can be protcols or addresses on the blockchain
-flow: transactions "in" or "out" of the entity
-limit: how many results to return 
+base: the entities to search, can be protcols or addresses on the blockchain 
+flow: transactions "in" or "out" of the entity(s)
+limit: how many results to return (maximum of 10000)
 usdGte: filters transactions to those greater than USD value given 
-timeLast: filters transactions by time, ex: 24h or 30d returns transactions that happened in the past 24 hours or 30 days respectively
+timeLast: filters transactions by time, ex: 24h or 30d returns transactions that happened in the last 24 hours or 30 days respectively
 sortKey: "time" "value" or "usd" to order transactions 
 
 For complete list of parameters and parameter configurations, check the Arkham API notion page in README.md 
