@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-const headers = {'fromAddress':{'address':'','arkhamEntity':{'name':'','website':'','twitter':''}},'fromIsContract':'','toAddress':{'address':'','arkhamEntity':{'name':'','website':'','twitter':''}},'blockTimestamp':'','tokenName':'','tokenSymbol':'','historicalUSD':'','chain':''};
+const headers = {'fromAddress':{'address':'','arkhamEntity':{'name':'','website':'','twitter':''}},'fromIsContract':'','toAddress':{'address':'','arkhamEntity':{'name':'','website':'','twitter':''}},'toIsContract':'','blockTimestamp':'','tokenName':'','tokenSymbol':'','historicalUSD':'','chain':''};
 
 const addToFile = function(dataToAdd){
 
