@@ -27,6 +27,6 @@ axios({
       usdGte:"1000000",
       timeLast:"90d",
     },
-  }).then((value)=> {objectToCSV(value.data.transfers)})
+  }).then((value) => {objectToCSV(value.data.transfers)})
     .catch((error) => {console.log(error)});
 
