@@ -16,17 +16,18 @@ sortKey: "time" "value" or "usd" to order transactions
 
 For complete list of parameters and parameter configurations, check the Arkham API notion page in README.md 
 */
+const config = {
+  method: "get",
+  url: "https://api.arkhamintelligence.com/transfers",
+  params: {
+    base: "aave,compound,notional-finance,morpho,venus",
+    flow: "in",
+    limit: "9999",
+    usdGte:"1000000",
+    timeLast:"90d",
+  },
+}
 
-axios({
-    method: "get",
-    url: "https://api.arkhamintelligence.com/transfers",
-    params: {
-      base: "aave,compound,notional-finance,morpho,venus",
-      flow: "in",
-      limit: "9999",
-      usdGte:"1000000",
-      timeLast:"90d",
-    },
-  }).then((value) => {objectToCSV(value.data.transfers)})
+axios(config).then((value) => {objectToCSV(value.data.transfers)})
     .catch((error) => {console.log(error)});
 
